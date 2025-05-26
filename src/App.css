@@ -4,14 +4,19 @@
 
 main {
     display: flex;
+    justify-content: space-between;
 }
+
+/*
+679 / 873 = 0.77803204
+*/
 
 .preview {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     width: 700px;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 7 / 9;
     background: #8f083c;
     padding: calc(var(--box-padding) * 2);
 }
@@ -20,6 +25,7 @@ main {
     display: flex;
     flex-basis: 100%;
     gap: var(--box-padding);
+    height: 40%;
 }
 
 header {
@@ -45,9 +51,19 @@ h1 {
     color: #feffff;
 }
 
+.variant-info {
+    font-size: 22px;
+}
+
 .logo {
     flex: 1;
-    background: #fff200;
+    background: linear-gradient(90deg,
+    rgba(255, 240, 0, 1) 0%,
+    rgba(255, 240, 0, 1) 33.33%,
+    rgba(237, 28, 35, 1) 33.33%,
+    rgba(237, 28, 35, 1) 66.66%,
+    rgba(255, 240, 0, 1) 66.66%,
+    rgba(255, 240, 0, 1) 100%);
 }
 
 .box-section {
@@ -58,6 +74,9 @@ h1 {
     flex-basis: 100%;
 }
 
-.image {
-    aspect-ratio: 3 / 2;
+.diagram {
+    img {
+        max-width: 100%;
+
+    }
 }
