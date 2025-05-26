@@ -14,11 +14,11 @@ function App() {
                         <h1>
                             <div className="make">Ford</div>
                             <div className="model">Capri</div>
-                            <div className="variant-info">
-                                All V6 models (including Series III)<br />
-                                1974 to 1998 ▢ 2792 cc ▢ 2994 cc
-                            </div>
                         </h1>
+                        <h2 className="variant-info">
+                            All V6 models (including Series III)<br />
+                            1974 to 1998 ▢ 2792 cc ▢ 2994 cc
+                        </h2>
                     </header>
                     <div className="logo box-section">
                         <img src={haynesLogo} alt="Haynes Logo"/>
@@ -28,14 +28,13 @@ function App() {
                 <h2 className="book-type box-section">
                     Owners Workshop Manual
                 </h2>
-                <div className="diagram box-section">
-                    <img src={diagram} alt="Diagram"/>
+                <div className="diagram box-section" style={{backgroundImage: `url(${diagram}`}}>
                 </div>
 
             </section>
-            <form className="controls">
+            {/*<form className="controls">
                 Controls
-            </form>
+            </form>*/}
         </main>
     )
 }

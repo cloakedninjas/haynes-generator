@@ -1,46 +1,52 @@
 :root {
-    --box-padding: 10px;
+    --ratio: 0.77777778;
+    --height: 600px;
+    --box-padding: calc(var(--width) * 0.015);
+    --width: calc(var(--height) * var(--ratio));
+    --border-size: calc(var(--box-padding) / 2);
+    --section-gap: calc(var(--box-padding) * 1.2);
 }
 
 main {
+    position: relative;
+    inset: 0;
     display: flex;
     justify-content: space-between;
 }
 
-/*
-679 / 873 = 0.77803204
-*/
-
 .preview {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 700px;
+    flex-direction: column;
+    gap: var(--section-gap);
     aspect-ratio: 7 / 9;
+    height: var(--height);
     background: #8f083c;
     padding: calc(var(--box-padding) * 2);
 }
 
 .top-section {
     display: flex;
-    flex-basis: 100%;
+    flex: 0 0;
     gap: var(--box-padding);
-    height: 40%;
 }
 
 header {
     display: flex;
-    flex-basis: 80%;
+    flex-basis: 76%;
     align-items: flex-start;
+    flex-wrap: wrap;
+    padding: var(--box-padding);
 }
 
 h1 {
     margin: 0;
     text-transform: uppercase;
+    font-size: calc(var(--height) * 0.1);
+    flex-basis: 100%;
 }
 
-.controls {
-    border: 1px green solid;
+h2 {
+    margin: 0;
 }
 
 .make {
@@ -52,7 +58,8 @@ h1 {
 }
 
 .variant-info {
-    font-size: 22px;
+    margin: 0;
+    font-size: calc(var(--height) * 0.033);
 }
 
 .logo {
@@ -67,16 +74,16 @@ h1 {
 }
 
 .box-section {
-    border: 5px #feffff solid;
+    border: var(--border-size) #feffff solid;
 }
 
 .book-type {
-    flex-basis: 100%;
+    flex: 0 0;
+    padding: var(--box-padding);
 }
 
 .diagram {
-    img {
-        max-width: 100%;
-
-    }
+    display: flex;
+    flex: 1 1;
+    background-size: cover;
 }
