@@ -3,6 +3,13 @@ import './App.css'
 import diagram from './assets/placeholder-img.png';
 import haynesLogo from './assets/haynes-logo-bw.png';
 
+const make = 'Ford';
+const model = 'Capri';
+const variant = `All V6 models (including Series III)
+1974 to 1998 ▢ 2792 cc ▢ 2994 cc`;
+const bookType = 'Owners Workshop Manual';
+const img = diagram;
+
 function App() {
     const [count, setCount] = useState(0)
 
@@ -12,23 +19,18 @@ function App() {
                 <div className="top-section">
                     <header className="box-section">
                         <h1>
-                            <div className="make">Ford</div>
-                            <div className="model">Capri</div>
+                            <div className="make">{ make }</div>
+                            <div className="model">{ model }</div>
                         </h1>
-                        <h2 className="variant-info">
-                            All V6 models (including Series III)<br />
-                            1974 to 1998 ▢ 2792 cc ▢ 2994 cc
-                        </h2>
+                        <h2 className="variant-info">{ variant }</h2>
                     </header>
                     <div className="logo box-section">
                         <img src={haynesLogo} alt="Haynes Logo"/>
                     </div>
                 </div>
 
-                <h2 className="book-type box-section">
-                    Owners Workshop Manual
-                </h2>
-                <div className="diagram box-section" style={{backgroundImage: `url(${diagram}`}}>
+                <h2 className="book-type box-section">{ bookType }</h2>
+                <div className="diagram box-section" style={{backgroundImage: `url(${img}`}}>
                 </div>
 
             </section>

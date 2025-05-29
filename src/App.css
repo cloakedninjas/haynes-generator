@@ -26,7 +26,7 @@ main {
 
 .top-section {
     display: flex;
-    flex: 0 0;
+    flex: 0 0 30%;
     gap: var(--box-padding);
 }
 
@@ -60,6 +60,7 @@ h2 {
 .variant-info {
     margin: 0;
     font-size: calc(var(--height) * 0.033);
+    white-space: pre;
 }
 
 .logo {
