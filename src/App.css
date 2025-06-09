@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url('/AlteHaasGroteskRegular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url('/AlteHaasGroteskBold.ttf') format('truetype');
+    font-weight: bold;
+}
+
 :root {
     --ratio: 0.77777778;
     --height: 600px;
@@ -20,8 +32,9 @@ main {
     gap: var(--section-gap);
     aspect-ratio: 7 / 9;
     height: var(--height);
-    background: #8f083c;
+    background: var(--background-color);
     padding: calc(var(--box-padding) * 2);
+    font-family: 'Alte Haas Grotesk', sans-serif;
 }
 
 .top-section {
@@ -87,4 +100,32 @@ h2 {
     display: flex;
     flex: 1 1;
     background-size: cover;
+}
+
+.controls {
+    display: flex;
+    flex: 0 1 400px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: var(--box-padding);
+    background: #333;
+
+    p {
+        display: flex;
+        margin: 0 0 20px;
+        flex-basis: 100%;
+        flex-wrap: wrap;
+
+        label {
+            flex-basis: 100%;
+            text-transform: capitalize;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"] {
+            flex-basis: 100%;
+            padding: 0.5rem;
+        }
+
+    }
 }
