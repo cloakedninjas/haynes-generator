@@ -35,6 +35,7 @@ main {
     background: var(--background-color);
     padding: calc(var(--box-padding) * 2);
     font-family: 'Alte Haas Grotesk', sans-serif;
+    color: #fff;
 }
 
 .top-section {
@@ -108,7 +109,6 @@ h2 {
     flex-wrap: wrap;
     align-content: flex-start;
     padding: var(--box-padding);
-    background: #333;
 
     p {
         display: flex;
@@ -120,6 +120,7 @@ h2 {
             flex-basis: 100%;
             text-transform: capitalize;
             margin-bottom: 0.5rem;
+            font-weight: bold;
         }
 
         input[type="text"] {
@@ -127,5 +128,24 @@ h2 {
             padding: 0.5rem;
         }
 
+    }
+}
+
+.color-picker {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        a {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            background: var(--swatch-color, darkcyan);
+            cursor: pointer;
+            border: 1px solid var(--page-text-color);
+        }
     }
 }

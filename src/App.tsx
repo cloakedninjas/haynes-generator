@@ -19,7 +19,31 @@ function App() {
         setFormData((prevState) => ({...prevState, [name]: value}));
     }
 
+    function changeBackgroundColor(color: string) {
+        setFormData((prevState) => ({...prevState, background: color}));
+    }
+
     const style = {'--background-color': formData.background} as React.CSSProperties;
+
+    const swatches: string[] = [
+        '#8f083c',
+        '#cc0449',
+        '#cc6b19',
+        '#047a30',
+        '#6cbb92',
+        '#9112c5',
+        '#10394c',
+        '#4457b5',
+        '#61685e',
+        '#241f21',
+    ];
+
+    const swatchVars: React.CSSProperties[] = swatches.map(swatch => {
+        return {'--swatch-color': swatch} as React.CSSProperties;
+    });
+
+        //{'--swatch-color': '#6cbb92'} as React.CSSProperties,
+
 
     return (
         <main style={style}>
@@ -39,7 +63,6 @@ function App() {
 
                 <h2 className="book-type box-section">{formData.bookType}</h2>
                 <div className="diagram box-section" style={{backgroundImage: `url(${formData.image})`}}></div>
-
             </section>
             <form className="controls">
                 {
@@ -56,6 +79,13 @@ function App() {
                         </p>
                     ))
                 }
+                <ul className="color-picker">
+                    {swatchVars.map((swatch, index) => (
+                        <li key={index} className="color-swatch" style={swatch}>
+                            <a onClick={() => changeBackgroundColor(swatches[index])}></a>
+                        </li>
+                    ))}
+                </ul>
             </form>
         </main>
     )

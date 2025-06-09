@@ -1,18 +1,24 @@
 :root {
+  --page-bg-color: #e5e0d4;
+  --page-text-color: #333;
+
+  @media (prefers-color-scheme: dark) {
+    --page-bg-color: #121212;
+    --page-text-color: #e0e0e0;
+  }
+
   font-family: "Noto Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-
-  color-scheme: light dark;
-  color: white;
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+  color: var(--page-text-color);
+  background-color: var(--page-bg-color);
 }
 
 a {
@@ -26,6 +32,7 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 20px;
 }
 
 h1 {
