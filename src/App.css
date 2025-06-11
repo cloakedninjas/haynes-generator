@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'Alte Haas Grotesk';
-    src: url('/AlteHaasGroteskRegular.ttf') format('truetype');
+    src: url('./assets/fonts/AlteHaasGroteskRegular.ttf') format('truetype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'Alte Haas Grotesk';
-    src: url('/AlteHaasGroteskBold.ttf') format('truetype');
+    src: url('./assets/fonts/AlteHaasGroteskBold.ttf') format('truetype');
     font-weight: bold;
 }
 
@@ -148,4 +148,8 @@ h2 {
             border: 1px solid var(--page-text-color);
         }
     }
+}
+
+button {
+    padding: 0.5rem;
 }

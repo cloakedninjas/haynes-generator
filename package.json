@@ -1,5 +1,6 @@
 {
   "name": "haynes-generator",
+  "author": "cloakedninjas",
   "private": true,
   "version": "0.0.0",
   "type": "module",

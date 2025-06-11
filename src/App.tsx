@@ -1,7 +1,8 @@
-import { type ChangeEvent, useState } from 'react'
+import * as React from 'react'
+import { type ChangeEvent, useRef, useState } from 'react'
 import './App.css'
-import haynesLogo from './assets/haynes-logo-bw.png';
-import * as React from 'react';
+import haynesLogo from './assets/images/haynes-logo-bw.png';
+import { saveImage } from './lib/save-image.ts';
 
 function App() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ function App() {
         image: 'src/assets/placeholder-img.png',
         background: '#8f083c'
     });
+    const previewNodeRef = useRef(null);
 
     function handleInput(e: ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target;
@@ -21,6 +23,11 @@ function App() {
 
     function changeBackgroundColor(color: string) {
         setFormData((prevState) => ({...prevState, background: color}));
+    }
+
+    function generateImage() {
+        const filename = (formData.make + '-' + formData.model + '.png').toLowerCase().replace(/\s+/g, '-');
+        saveImage(previewNodeRef.current, filename);
     }
 
     const style = {'--background-color': formData.background} as React.CSSProperties;
@@ -42,12 +49,9 @@ function App() {
         return {'--swatch-color': swatch} as React.CSSProperties;
     });
 
-        //{'--swatch-color': '#6cbb92'} as React.CSSProperties,
-
-
     return (
         <main style={style}>
-            <section className="preview">
+            <section className="preview" ref={previewNodeRef}>
                 <div className="top-section">
                     <header className="box-section">
                         <h1>
@@ -86,6 +90,8 @@ function App() {
                         </li>
                     ))}
                 </ul>
+
+                <button onClick={() => generateImage()} type="button">Download image</button>
             </form>
         </main>
     )
