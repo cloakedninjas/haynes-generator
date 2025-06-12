@@ -5,13 +5,13 @@ import haynesLogo from './assets/images/haynes-logo-bw.png';
 import { saveImage } from './lib/save-image.ts';
 
 function App() {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<CoverFields>({
         make: 'Ford',
         model: 'Capri',
         variant: `All V6 models (including Series III)
 1974 to 1998 ▢ 2792 cc ▢ 2994 cc`,
         bookType: 'Owners Workshop Manual',
-        image: 'src/assets/placeholder-img.png',
+        image: 'src/assets/images/f22.png',
         background: '#8f083c'
     });
     const previewNodeRef = useRef(null);
@@ -30,7 +30,14 @@ function App() {
         saveImage(previewNodeRef.current, filename);
     }
 
-    const style = {'--background-color': formData.background} as React.CSSProperties;
+    const simpleFields = [
+        'make',
+        'model',
+        'variant',
+        'bookType'
+    ]
+
+    const cssVarBg = {'--background-color': formData.background} as React.CSSProperties;
 
     const swatches: string[] = [
         '#8f083c',
@@ -50,7 +57,7 @@ function App() {
     });
 
     return (
-        <main style={style}>
+        <main style={cssVarBg}>
             <section className="preview" ref={previewNodeRef}>
                 <div className="top-section">
                     <header className="box-section">
@@ -70,7 +77,7 @@ function App() {
             </section>
             <form className="controls">
                 {
-                    Object.keys(formData).map((key) => (
+                    simpleFields.map((key) => (
                         <p key={key}>
                             <label htmlFor={key}>{key}</label>
                             <input
@@ -83,6 +90,20 @@ function App() {
                         </p>
                     ))
                 }
+
+                <p>
+                    <label htmlFor="image">Image</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={formData.image}
+                        onInput={handleInput}
+                    />
+                </p>
+
+                <label>Colour scheme</label>
+
                 <ul className="color-picker">
                     {swatchVars.map((swatch, index) => (
                         <li key={index} className="color-swatch" style={swatch}>
@@ -98,3 +119,12 @@ function App() {
 }
 
 export default App
+
+interface CoverFields {
+    make: string;
+    model: string;
+    variant: string;
+    bookType: string;
+    image: string;
+    background: string;
+}

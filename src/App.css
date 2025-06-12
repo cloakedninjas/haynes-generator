@@ -101,6 +101,7 @@ h2 {
     display: flex;
     flex: 1 1;
     background-size: cover;
+    background-color: color-mix(in oklab, var(--background-color) 25%, white);
 }
 
 .controls {
@@ -115,19 +116,18 @@ h2 {
         margin: 0 0 20px;
         flex-basis: 100%;
         flex-wrap: wrap;
+    }
 
-        label {
-            flex-basis: 100%;
-            text-transform: capitalize;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
+    label {
+        flex-basis: 100%;
+        text-transform: capitalize;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
 
-        input[type="text"] {
-            flex-basis: 100%;
-            padding: 0.5rem;
-        }
-
+    input[type="text"] {
+        flex-basis: 100%;
+        padding: 0.5rem;
     }
 }
 
@@ -151,5 +151,6 @@ h2 {
 }
 
 button {
+    margin: 20px 0 0 0;
     padding: 0.5rem;
 }
