@@ -43,3 +43,10 @@ img {
     max-width: 100%;
 }
 
+textarea {
+    font-family: "Noto Sans", sans-serif;
+}
+
+button {
+    cursor: pointer;
+}

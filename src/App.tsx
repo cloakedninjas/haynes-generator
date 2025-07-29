@@ -1,22 +1,28 @@
 import * as React from 'react'
-import { type ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.css'
 import haynesLogo from './assets/images/haynes-logo-bw.png';
 import { saveImage } from './lib/save-image.ts';
+import { presets, swatches } from './lib/presets.ts';
+
+/*
+todo:
+- get TS types for FormEvent<MyDataType>
+- find Vite asset config for asset dir
+ */
 
 function App() {
-    const [formData, setFormData] = useState<CoverFields>({
-        make: 'Ford',
-        model: 'Capri',
-        variant: `All V6 models (including Series III)
-1974 to 1998 ▢ 2792 cc ▢ 2994 cc`,
-        bookType: 'Owners Workshop Manual',
-        image: 'src/assets/images/f22.png',
-        background: '#8f083c'
-    });
+    const [formData, setFormData] = useState<CoverFields>(presets[0]);
     const previewNodeRef = useRef(null);
 
-    function handleInput(e: ChangeEvent<HTMLInputElement>) {
+    function changePreset(presetIndex: string) {
+        const preset = presets[parseInt(presetIndex)];
+        if (preset) {
+            setFormData(preset);
+        }
+    }
+
+    function handleInput(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const {name, value} = e.target;
         setFormData((prevState) => ({...prevState, [name]: value}));
     }
@@ -30,31 +36,35 @@ function App() {
         saveImage(previewNodeRef.current, filename);
     }
 
-    const simpleFields = [
-        'make',
-        'model',
-        'variant',
-        'bookType'
-    ]
-
     const cssVarBg = {'--background-color': formData.background} as React.CSSProperties;
-
-    const swatches: string[] = [
-        '#8f083c',
-        '#cc0449',
-        '#cc6b19',
-        '#047a30',
-        '#6cbb92',
-        '#9112c5',
-        '#10394c',
-        '#4457b5',
-        '#61685e',
-        '#241f21',
-    ];
-
     const swatchVars: React.CSSProperties[] = swatches.map(swatch => {
         return {'--swatch-color': swatch} as React.CSSProperties;
     });
+
+    function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+        const input = e.target as FileEventTarget;
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (!input.files) {
+                    return;
+                }
+
+                setFormData(prevState => ({
+                    ...prevState,
+                    image: URL.createObjectURL(input.files[0])
+                }));
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        //const fr = new FileReader();
+        //fr.readAsDataURL(e.target.value)
+        //const i = new Image();
+    }
 
     return (
         <main style={cssVarBg}>
@@ -76,20 +86,55 @@ function App() {
                 <div className="diagram box-section" style={{backgroundImage: `url(${formData.image})`}}></div>
             </section>
             <form className="controls">
-                {
-                    simpleFields.map((key) => (
-                        <p key={key}>
-                            <label htmlFor={key}>{key}</label>
-                            <input
-                                type="text"
-                                id={key}
-                                name={key}
-                                value={formData[key as keyof typeof formData]}
-                                onInput={handleInput}
-                            />
-                        </p>
-                    ))
-                }
+                <p>
+                    <label htmlFor="image">Preset</label>
+                    <select onChange={e => changePreset(e.target.value)}>
+                        {presets.map((preset, index) => (
+                            <option key={index} value={index}>
+                                {preset.make} {preset.model}
+                            </option>
+                        ))}
+                    </select>
+                </p>
+
+                <p>
+                    <label htmlFor="make">Make</label>
+                    <input
+                        type="text"
+                        id="make"
+                        name="make"
+                        value={formData.make}
+                        onChange={handleInput} />
+                </p>
+
+                <p>
+                    <label htmlFor="make">Model</label>
+                    <input
+                        type="text"
+                        id="model"
+                        name="model"
+                        value={formData.model}
+                        onChange={handleInput} />
+                </p>
+
+                <p>
+                    <label htmlFor="variant">Variant</label>
+                    <textarea
+                        id="variant"
+                        name="variant"
+                        value={formData.variant}
+                        onChange={handleInput} />
+                </p>
+
+                <p>
+                    <label htmlFor="make">Book type</label>
+                    <input
+                        type="text"
+                        id="bookType"
+                        name="bookType"
+                        value={formData.bookType}
+                        onChange={handleInput} />
+                </p>
 
                 <p>
                     <label htmlFor="image">Image</label>
@@ -97,8 +142,17 @@ function App() {
                         type="text"
                         id="image"
                         name="image"
-                        value={formData.image}
-                        onInput={handleInput}
+                        onChange={handleInput} />
+                </p>
+
+                <p>
+                    <label htmlFor="image_upload">Image upload</label>
+                    <input
+                        type="file"
+                        id="image_upload"
+                        name="image_upload"
+                        accept={'image/*'}
+                        onChange={e => handleImageUpload(e)}
                     />
                 </p>
 
@@ -115,12 +169,13 @@ function App() {
                 <button onClick={() => generateImage()} type="button">Download image</button>
             </form>
         </main>
+
     )
 }
 
 export default App
 
-interface CoverFields {
+export interface CoverFields {
     make: string;
     model: string;
     variant: string;
@@ -128,3 +183,6 @@ interface CoverFields {
     image: string;
     background: string;
 }
+
+// @see https://github.com/microsoft/TypeScript/issues/31816
+export type FileEventTarget = EventTarget & { files: FileList };
